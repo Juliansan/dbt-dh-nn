@@ -1,13 +1,13 @@
 snowflake:
   outputs:
     dev:
-      account: "${SNOWFLAKE_ACCOUNT}"
-      database: "${SNOWFLAKE_DB}"
-      password: "${SNOWFLAKE_PASSWORD}"
-      role: "${SNOWFLAKE_ROLE}"
-      schema: "${SNOWFLAKE_SCHEMA}"
+      account: _account_
+      database: _db_
+      password: _password_
+      role: _role_
+      schema: _schema_
       threads: 4
       type: snowflake
-      user: "${SNOWFLAKE_USER}"
-      warehouse: "${SNOWFLAKE_WH}"
+      user: _user_
+      warehouse: _wh_
   target: dev
