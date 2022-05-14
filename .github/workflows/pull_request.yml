@@ -73,8 +73,7 @@ jobs:
           SNOWFLAKE_WH: ${{ secrets.SNOWFLAKE_WH }}
           SNOWFLAKE_DB: ${{ secrets.SNOWFLAKE_DB }}
       - run: |
-            cd dbt-dh-nn/dbt_project
-            dbt debug
+            docker ps 
 
 
 
