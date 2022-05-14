@@ -57,9 +57,6 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Check workspace
-        run: echo $GITHUB_WORKSPACE
 
       - name: Check account
         run: echo ${{ secrets.SNOWFLAKE_ACCOUNT }}      
@@ -76,7 +73,7 @@ jobs:
           SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
           SNOWFLAKE_WH: ${{ secrets.SNOWFLAKE_WH }}
           SNOWFLAKE_DB: ${{ secrets.SNOWFLAKE_DB }}
-      - run: |
+        run: |
             cd $GITHUB_WORKSPACE/dbt_project
             chmod +x entrypoint.sh
             ./entrypoint.sh
