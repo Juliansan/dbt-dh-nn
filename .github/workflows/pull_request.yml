@@ -75,8 +75,6 @@ jobs:
           volumes: /__w/dbt-dh-nn/dbt-dh-nn/dbt-dh-nn/dbt_project:dbt_project
       - run: |
             cd $GITHUB_WORKSPACE/dbt_project
-            chmod +x entrypoint.sh
-            ./entrypoint.sh
             dbt debug
 
       # Runs a set of commands using the runners shell
