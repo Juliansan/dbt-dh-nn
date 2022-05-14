@@ -1,13 +1,13 @@
 snowflake:
   outputs:
     dev:
-      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
-      database: "{{ env_var('SNOWFLAKE_DB') }}" 
-      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
-      role: "{{ env_var('SNOWFLAKE_ROLE') }}" 
-      schema: "{{ env_var('SNOWFLAKE_SCHEMA') }}"
+      account: ${SNOWFLAKE_ACCOUNT}
+      database: ${SNOWFLAKE_DB}
+      password: ${SNOWFLAKE_PASSWORD}
+      role: ${SNOWFLAKE_ROLE}
+      schema: ${SNOWFLAKE_SCHEMA}
       threads: 4
       type: snowflake
-      user: "{{ env_var('SNOWFLAKE_USER') }}" 
-      warehouse: "{{ env_var('SNOWFLAKE_WH') }}" 
+      user: ${SNOWFLAKE_USER}
+      warehouse: ${SNOWFLAKE_WH}
   target: dev
