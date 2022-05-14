@@ -69,13 +69,13 @@ jobs:
         uses: docker://juliansanjuan/dbt-nn
         with:
           volumes: /__w/dbt-dh-nn/dbt-dh-nn/dbt-dh-nn/dbt_project:dbt_project
-          secrets: |
-            "SNOWFLAKE_ACCOUNT=${{ secrets.SNOWFLAKE_ACCOUNT }}"
-            "SNOWFLAKE_USER=${{ secrets.SNOWFLAKE_USER }}"
-            "SNOWFLAKE_PASSWORD=${{ secrets.SNOWFLAKE_PASSWORD }}"
-            "SNOWFLAKE_ROLE=${{ secrets.SNOWFLAKE_ROLE }}"
-            "SNOWFLAKE_WH=${{ secrets.SNOWFLAKE_WH }}"
-            "SNOWFLAKE_DB=${{ secrets.SNOWFLAKE_DB }}"
+        env:
+          SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+          SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+          SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
+          SNOWFLAKE_WH: ${{ secrets.SNOWFLAKE_WH }}
+          SNOWFLAKE_DB: ${{ secrets.SNOWFLAKE_DB }}
       - run: |
             cd $GITHUB_WORKSPACE/dbt_project
             echo  profiles "${DBT_PROFILES_DIR}"
