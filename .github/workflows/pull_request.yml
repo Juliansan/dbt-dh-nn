@@ -80,7 +80,9 @@ jobs:
             cd $GITHUB_WORKSPACE/dbt_project
             echo profiles "${DBT_PROFILES_DIR}"
             echo account "${SNOWFLAKE_ACCOUNT}"
-            dbt debug
+            ls 
+            chmod +x entrypoint.sh
+            ls -la
 
 
       # Runs a set of commands using the runners shell
