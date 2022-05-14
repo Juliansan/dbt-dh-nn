@@ -39,6 +39,13 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }} 
           build_args: |
             DBT_PROFILES_DIR: $GITHUB_WORKSPACE/dbt_project
+        env:
+          SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+          SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+          SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
+          SNOWFLAKE_WH: ${{ secrets.SNOWFLAKE_WH }}
+          SNOWFLAKE_DB: ${{ secrets.SNOWFLAKE_DB }}            
       - run: |
               docker build -t dbt-nn .
               docker tag dbt-nn juliansanjuan/dbt-nn:latest
@@ -69,13 +76,6 @@ jobs:
         uses: docker://juliansanjuan/dbt-nn
         with:
           volumes: /__w/dbt-dh-nn/dbt-dh-nn/dbt-dh-nn/dbt_project:dbt_project
-        env:
-          SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
-          SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
-          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
-          SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
-          SNOWFLAKE_WH: ${{ secrets.SNOWFLAKE_WH }}
-          SNOWFLAKE_DB: ${{ secrets.SNOWFLAKE_DB }}
       - run: |
             cd $GITHUB_WORKSPACE/dbt_project
             chmod +x entrypoint.sh
