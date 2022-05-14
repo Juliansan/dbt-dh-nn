@@ -13,8 +13,9 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+
 jobs:
+# Clean the repository for next runs
   cleanup:
     runs-on: local-ubuntu
     container:
@@ -24,6 +25,7 @@ jobs:
         # Volume auto mounted by gh actions pointing to the current working-directory
         run: find /__w/${{ github.event.repository.name }}/${{ github.event.repository.name }}/. -name . -o -prune -exec rm -rf -- {} + || true
 
+# Build and push the image. this step will be independent or just runned on main branch when deployed to production
   build_push_image:
     needs: cleanup
     runs-on: local-ubuntu
@@ -40,7 +42,7 @@ jobs:
               docker tag dbt-nn juliansanjuan/dbt-nn:latest
               docker push juliansanjuan/dbt-nn:latest
 
-
+# Build Image and do dbt commands
   build:
     # The type of runner that the job will run on
     needs: build_push_image
@@ -54,10 +56,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
+      - name: Check workspace
         run: echo $GITHUB_WORKSPACE
 
 
@@ -73,7 +72,9 @@ jobs:
           SNOWFLAKE_WH: ${{ secrets.SNOWFLAKE_WH }}
           SNOWFLAKE_DB: ${{ secrets.SNOWFLAKE_DB }}
       - run: |
-            whoami 
+            whoami
+            ls 
+            pwd
 
 
 
