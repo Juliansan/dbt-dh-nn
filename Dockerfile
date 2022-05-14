@@ -12,7 +12,7 @@ RUN apt-get update -y && \
 RUN pip install -U pip
 
 #Install dependencies from requirements.txt
-COPY entrypoint.sh requirements.txt ./
+COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 
