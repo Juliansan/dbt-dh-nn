@@ -1,5 +1,7 @@
 FROM python:3.8.5
 
+ARG GITHUB_WORKSPACE=$GITHUB_WORKSPACE
+
 # Update and install system packages
 RUN apt-get update -y && \
   apt-get install --no-install-recommends -y -q \
