@@ -59,6 +59,9 @@ jobs:
       - name: Check workspace
         run: echo $GITHUB_WORKSPACE
 
+      - name: Check account
+        run: echo ${{ secrets.SNOWFLAKE_ACCOUNT }}      
+
 
       - name: Log the step container
         uses: docker://juliansanjuan/dbt-nn
