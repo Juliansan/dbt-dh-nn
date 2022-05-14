@@ -73,9 +73,8 @@ jobs:
           SNOWFLAKE_DB: ${{ secrets.SNOWFLAKE_DB }}
       - run: |
             cd $GITHUB_WORKSPACE/dbt_project
-            cat profiles.yml
-            echo ${DBT_PROFILES_DIR}
-            echo ${SNOWFLAKE_ACCOUNT}
+            echo  profiles "${DBT_PROFILES_DIR}"
+            echo  account "${SNOWFLAKE_ACCOUNT}"
 
 
 
