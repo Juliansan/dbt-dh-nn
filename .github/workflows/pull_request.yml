@@ -72,9 +72,8 @@ jobs:
           SNOWFLAKE_WH: ${{ secrets.SNOWFLAKE_WH }}
           SNOWFLAKE_DB: ${{ secrets.SNOWFLAKE_DB }}
       - run: |
-            whoami
-            ls 
-            pwd
+            cd $GITHUB_WORKSPACE/dbt_project
+            ls
 
 
 
