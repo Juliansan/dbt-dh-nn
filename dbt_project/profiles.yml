@@ -3,16 +3,16 @@ snowflake:
   outputs:
     dev:
       type: snowflake
-      account: ${SNOWFLAKE_ACCOUNT}
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
 
       # User/password auth
-      user: ${SNOWFLAKE_USER}
-      password: ${SNOWFLAKE_PASSWORD}
+      user: "{{ env_var('SNOWFLAKE_USER') }}" 
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
 
-      role: ${SNOWFLAKE_ROLE}
-      database: ${SNOWFLAKE_DB}
-      warehouse: ${SNOWFLAKE_WH}
-      schema: ${SNOWFLAKE_SCHEMA}
+      role: "{{ env_var('SNOWFLAKE_ROLE') }}" 
+      database: "{{ env_var('SNOWFLAKE_DB') }}" 
+      warehouse: "{{ env_var('SNOWFLAKE_WH') }}" 
+      schema: "{{ env_var('SNOWFLAKE_SCHEMA') }}"
       threads: 6
       client_session_keep_alive: False
 
