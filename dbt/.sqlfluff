@@ -1,0 +1,11 @@
+[tool.sqlfluff.core]
+templater = "dbt"
+sql_file_exts = ".sql,.sql.j2,.dml,.ddl"
+dialect = "snowflake"
+
+[tool.sqlfluff.templater.dbt]
+project_dir = "."
+profile = "snowflake"
+
+[tool.sqlfluff.rules]
+max_line_length = 120
