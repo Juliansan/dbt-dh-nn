@@ -6,13 +6,13 @@ snowflake:
       account: $SNOWFLAKE_ACCOUNT
 
       # User/password auth
-      user: $SNOWFLAKE_USER
-      password: $SNOWFLAKE_PASSWORD
+      user: ${SNOWFLAKE_USER}
+      password: ${SNOWFLAKE_PASSWORD}
 
-      role: $SNOWFLAKE_ROLE
-      database: $SNOWFLAKE_DB
-      warehouse: $SNOWFLAKE_WH
-      schema: $SNOWFLAKE_SCHEMA
+      role: ${SNOWFLAKE_ROLE}
+      database: ${SNOWFLAKE_DB}
+      warehouse: ${SNOWFLAKE_WH}
+      schema: ${SNOWFLAKE_SCHEMA}
       threads: 6
       client_session_keep_alive: False
 
