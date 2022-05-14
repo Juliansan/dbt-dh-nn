@@ -3,16 +3,16 @@ snowflake:
   outputs:
     dev:
       type: snowflake
-      account: $SNOWFLAKE_ACCOUNT
+      account: _account_
 
       # User/password auth
-      user: ${SNOWFLAKE_USER}
-      password: ${SNOWFLAKE_PASSWORD}
+      user: _user_
+      password: _password_
 
-      role: ${SNOWFLAKE_ROLE}
-      database: ${SNOWFLAKE_DB}
-      warehouse: ${SNOWFLAKE_WH}
-      schema: ${SNOWFLAKE_SCHEMA}
+      role: _role_
+      database: _db_
+      warehouse: _wh_
+      schema: _schema_
       threads: 6
       client_session_keep_alive: False
 

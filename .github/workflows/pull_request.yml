@@ -64,6 +64,7 @@ jobs:
         uses: docker://juliansanjuan/dbt-nn
         with:
           volumes: /__w/dbt-dh-nn/dbt-dh-nn/dbt-dh-nn/dbt_project:dbt_project
+          entrypoint: /__w/dbt-dh-nn/dbt-dh-nn/dbt-dh-nn/entrypoint.sh 
         env:
           SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
           SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
