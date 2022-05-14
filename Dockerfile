@@ -1,6 +1,5 @@
 FROM python:3.8.5
 
-ARG GITHUB_WORKSPACE=$GITHUB_WORKSPACE
 
 # Update and install system packages
 RUN apt-get update -y && \
@@ -19,7 +18,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Set environment variables
 ENV DBT_DIR /dbt_project
-ENV DBT_PROFILES_DIR=${GITHUB_WORKSPACE}/dbt_project
+ENV DBT_PROFILES_DIR=${DBT_PROFILES_DIR}
 ENV PATH "${PATH}:${DBT_DIR}"
 
 # Set working directory

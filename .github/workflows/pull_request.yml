@@ -37,8 +37,8 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }} 
-        env:
-          GITHUB_WORKSPACE: ${$GITHUB_WORKSPACE}   
+          build_args: |
+            DBT_PROFILES_DIR: $GITHUB_WORKSPACE/dbt_project
       - run: |
               docker build -t dbt-nn .
               docker tag dbt-nn juliansanjuan/dbt-nn:latest
