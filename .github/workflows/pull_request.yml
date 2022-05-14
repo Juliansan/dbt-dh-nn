@@ -51,6 +51,7 @@ jobs:
     runs-on: [self-hosted,local-ubuntu] # Use ubuntu latests as container is just supported in linux.
     container: 
       image: juliansanjuan/dbt-nn
+      options: -v /__w/dbt-dh-nn/dbt-dh-nn/dbt-dh-nn/dbt_project:dbt_project
       credentials:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}    
@@ -59,13 +60,11 @@ jobs:
     steps:
 
       - name: Check account
-        run: echo ${{ secrets.SNOWFLAKE_ACCOUNT }}      
-
-
-      - name: Log the step container
-        uses: docker://juliansanjuan/dbt-nn
-        with:
-          volumes: /__w/dbt-dh-nn/dbt-dh-nn/dbt-dh-nn/dbt_project:dbt_project
+        run: |
+            cd $GITHUB_WORKSPACE/dbt_project
+            chmod +x entrypoint.sh
+            ./entrypoint.sh
+            cat profiles.yml
         env:
           SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
           SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
@@ -73,11 +72,7 @@ jobs:
           SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
           SNOWFLAKE_WH: ${{ secrets.SNOWFLAKE_WH }}
           SNOWFLAKE_DB: ${{ secrets.SNOWFLAKE_DB }}
-        run: |
-            cd $GITHUB_WORKSPACE/dbt_project
-            chmod +x entrypoint.sh
-            ./entrypoint.sh
-            cat profiles.yml
+
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
