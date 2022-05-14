@@ -1,8 +1,5 @@
 #!/bin/bash
 
-echo "dbt project folder set as \"${DBT_PROJECT_FOLDER}\""
-cd ${DBT_PROJECT_FOLDER}
-
 echo connection settings to snowflake
 
 sed -i "s/_account_/${SNOWFLAKE_ACCOUNT}/g" profiles.yml
