@@ -73,7 +73,7 @@ jobs:
           SNOWFLAKE_WH: ${{ secrets.SNOWFLAKE_WH }}
           SNOWFLAKE_DB: ${{ secrets.SNOWFLAKE_DB }}
       - run: |
-            docker ps 
+            whoami 
 
 
 
