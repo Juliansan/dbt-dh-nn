@@ -48,11 +48,21 @@ jobs:
         run: echo $GITHUB_WORKSPACE
 
 
-#      - name: Log the step container node version
-#        uses: docker://dbt-nn
-#        with:
-#          entrypoint: usr/local/bin/echo
-#          args: -v      
+      - name: Log the step container
+        uses: docker://dbt-nn
+        with:
+          volumes: /__w/dbt-dh-nn/dbt-dh-nn/dbt-dh-nn/dbt_project:dbt_project
+        env:
+          SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+          SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+          SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
+          SNOWFLAKE_WH: ${{ secrets.SNOWFLAKE_WH }}
+          SNOWFLAKE_DB: ${{ secrets.SNOWFLAKE_DB }}
+      - run: |
+            dbt debug 
+
+
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
