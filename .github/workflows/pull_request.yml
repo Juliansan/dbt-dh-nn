@@ -17,7 +17,7 @@ on:
 jobs:
 # Clean the repository for next runs
   cleanup:
-    runs-on: local-ubuntu
+    runs-on: [self-hosted,local-ubuntu]
     container:
       image: ubuntu:latest
     steps:
@@ -28,7 +28,7 @@ jobs:
 # Build and push the image. this step will be independent or just runned on main branch when deployed to production
   build_push_image:
     needs: cleanup
-    runs-on: local-ubuntu
+    runs-on: [self-hosted,local-ubuntu]
     steps:
       - uses: actions/checkout@v3
       -
@@ -46,7 +46,7 @@ jobs:
   build:
     # The type of runner that the job will run on
     needs: build_push_image
-    runs-on: local-ubuntu # Use ubuntu latests as container is just supported in linux.
+    runs-on: [self-hosted,local-ubuntu] # Use ubuntu latests as container is just supported in linux.
     container: 
       image: juliansanjuan/dbt-nn
       credentials:
@@ -78,7 +78,7 @@ jobs:
             cd $GITHUB_WORKSPACE/dbt_project
             echo  profiles "${DBT_PROFILES_DIR}"
             echo  account "${SNOWFLAKE_ACCOUNT}"
-            echo  account "${SNOWFLAKE_ACCOUNT}"
+            dbt debug
 
 
       # Runs a set of commands using the runners shell
