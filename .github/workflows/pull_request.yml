@@ -31,12 +31,17 @@ jobs:
               docker build -t dbt-nn .
               docker tag dbt-nn juliansanjuan/dbt-nn:latest
               docker push juliansanjuan/dbt-nn:latest
+
+
   build:
     # The type of runner that the job will run on
     needs: build_push_image
     runs-on: local-ubuntu # Use ubuntu latests as container is just supported in linux.
     container: 
       image: juliansanjuan/dbt-nn
+      credentials:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}    
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -49,7 +54,7 @@ jobs:
 
 
       - name: Log the step container
-        uses: docker://dbt-nn
+        uses: docker://juliansanjuan/dbt-nn
         with:
           volumes: /__w/dbt-dh-nn/dbt-dh-nn/dbt-dh-nn/dbt_project:dbt_project
         env:
