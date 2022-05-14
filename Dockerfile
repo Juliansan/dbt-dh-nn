@@ -19,7 +19,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Set environment variables
 ENV DBT_DIR /dbt_project
-ENV DBT_PROFILES_DIR=${$GITHUB_WORKSPACE}/dbt_project
+ENV DBT_PROFILES_DIR=${GITHUB_WORKSPACE}/dbt_project
 ENV PATH "${PATH}:${DBT_DIR}"
 
 # Set working directory
