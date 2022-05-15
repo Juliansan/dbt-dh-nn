@@ -3,7 +3,10 @@ name: fb_push_workflow
 # This PR should just run on the feature branches
 on:
   push:
-    branches: [ master ]
+    branches:
+    - '*'
+    - '!main'
+    - '!dev'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
