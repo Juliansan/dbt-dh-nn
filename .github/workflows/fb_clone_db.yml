@@ -49,6 +49,5 @@ jobs:
         with:
           volumes: /__w/dbt-dh-nn/dbt-dh-nn/dbt-dh-nn/dbt_project:dbt_project
       - run: |
-            ls -la
-            pwd
+            cd $GITHUB_WORKSPACE/dbt_project
             echo after a pull request from dev this workflow will trigger for clonning. 
