@@ -43,18 +43,11 @@ jobs:
 
     # Clone DB
     steps:
-      - name: dbt debug
-        uses: docker://juliansanjuan/dbt-nn
-        with:
-          volumes: /__w/dbt-dh-nn/dbt-dh-nn/dbt-dh-nn/dbt_project:dbt_project
-      - run: |
-            cd $GITHUB_WORKSPACE/dbt_project
-            dbt debug            
-
       - name: dbt clone
         uses: docker://juliansanjuan/dbt-nn
         with:
           volumes: /__w/dbt-dh-nn/dbt-dh-nn/dbt-dh-nn/dbt_project:dbt_project
       - run: |
-            cd $GITHUB_WORKSPACE/dbt_project
+            ls -la
+            pwd
             echo after a pull request from dev this workflow will trigger for clonning. 
