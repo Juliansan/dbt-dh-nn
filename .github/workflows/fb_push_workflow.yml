@@ -2,7 +2,7 @@ name: fb_push_workflow
 
 # This PR should just run on the feature branches
 on:
-  push:
+  pull_request:
     branches:
     - '*'
     - '!main'
