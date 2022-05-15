@@ -1,9 +1,10 @@
-name: fb_clone_db
+name: delete_db_fb
 
 
 on:
-  pull_request:
-    types: [ labeled ]
+  push:
+    branches:
+      - dev
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -48,4 +49,4 @@ jobs:
           volumes: /__w/dbt-dh-nn/dbt-dh-nn/dbt-dh-nn/dbt_project:dbt_project
       - run: |
             cd $GITHUB_WORKSPACE/dbt_project
-            echo after a pull request from dev this workflow will trigger for clonning. 
+            echo delete clone db

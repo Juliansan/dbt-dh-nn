@@ -1,9 +1,14 @@
-name: fb_push_workflow
+name: fb_dbt_workflow
 
 # This PR should just run on the feature branches
 on:
-  push:
-    branches: [ dev ]
+  pull_request:
+    types:
+      - synchronize
+    branches:
+    - '*'
+    - '!main'
+    - 'dev'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -40,7 +45,7 @@ jobs:
               docker push juliansanjuan/dbt-nn:latest
 
 # Build Image and do dbt commands
-  execute_dbt:
+  set_docker:
     # The type of runner that the job will run on
     needs: build_push_image
     runs-on: [self-hosted,local-ubuntu] # Use ubuntu latests as container is just supported in linux.
