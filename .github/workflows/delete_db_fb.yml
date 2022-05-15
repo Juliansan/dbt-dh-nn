@@ -1,0 +1,52 @@
+name: delete_db_fb
+
+
+on:
+  push:
+    branches:
+      - dev
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+# Clean the repository for next runs
+  cleanup:
+    runs-on: [self-hosted,local-ubuntu]
+    container:
+      image: ubuntu:latest
+    steps:
+      - name: Cleaning up the $GITHUB_WORKSPACE as root from a Docker image
+        # Volume auto mounted by gh actions pointing to the current working-directory
+        run: find /__w/${{ github.event.repository.name }}/${{ github.event.repository.name }}/. -name . -o -prune -exec rm -rf -- {} + || true
+
+
+# Build Image and do dbt commands
+  set_clone:
+    # The type of runner that the job will run on
+    needs: cleanup
+    if: ${{ github.event.label.name == 'clone' }}    
+    runs-on: [self-hosted,local-ubuntu] # Use ubuntu latests as container is just supported in linux.
+    container: 
+      image: juliansanjuan/dbt-nn
+      credentials:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      env: 
+          SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+          SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+          SNOWFLAKE_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA}}
+          SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
+          SNOWFLAKE_WH: ${{ secrets.SNOWFLAKE_WH }}
+          SNOWFLAKE_DB: ${{ secrets.SNOWFLAKE_DB }}      
+
+    # Clone DB
+    steps:
+      - uses: actions/checkout@v3
+      - name: dbt clone
+        uses: docker://juliansanjuan/dbt-nn
+        with:
+          volumes: /__w/dbt-dh-nn/dbt-dh-nn/dbt-dh-nn/dbt_project:dbt_project
+      - run: |
+            cd $GITHUB_WORKSPACE/dbt_project
+            echo delete clone db

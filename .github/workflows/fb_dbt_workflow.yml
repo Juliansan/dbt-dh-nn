@@ -1,8 +1,10 @@
-name: fb_push_workflow
+name: fb_dbt_workflow
 
 # This PR should just run on the feature branches
 on:
   pull_request:
+    types:
+      - synchronize
     branches:
     - '*'
     - '!main'
