@@ -1,12 +1,7 @@
-# This is a basic workflow to help you get started with Actions
-
 name: fb_push_workflow
 
-# Controls when the workflow will run
+# This PR should just run on the feature branches
 on:
-  pull_request:
-    branches: [ master ]
-
   push:
     branches: [ master ]
 
