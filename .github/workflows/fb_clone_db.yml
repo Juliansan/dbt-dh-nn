@@ -7,25 +7,25 @@ on:
     - '*'
     - '!main'
     - 'dev'
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
 # Clean the repository for next runs
-#  cleanup:
-#    runs-on: [self-hosted,local-ubuntu]
-#    container:
-#      image: ubuntu:latest
-#    steps:
-#      - name: Cleaning up the $GITHUB_WORKSPACE as root from a Docker image
-#        # Volume auto mounted by gh actions pointing to the current working-directory
-#        run: find /__w/${{ github.event.repository.name }}/${{ github.event.repository.name }}/. -name . -o -prune -exec rm -rf -- {} + || true
+  cleanup:
+    runs-on: [self-hosted,local-ubuntu]
+    container:
+      image: ubuntu:latest
+    steps:
+      - name: Cleaning up the $GITHUB_WORKSPACE as root from a Docker image
+        # Volume auto mounted by gh actions pointing to the current working-directory
+        run: find /__w/${{ github.event.repository.name }}/${{ github.event.repository.name }}/. -name . -o -prune -exec rm -rf -- {} + || true
 
 
 # Build Image and do dbt commands
-  clone_db:
-#    needs: cleanup
+  set_docker:
+    # The type of runner that the job will run on
+#    needs: build_push_image
     runs-on: [self-hosted,local-ubuntu] # Use ubuntu latests as container is just supported in linux.
     container: 
       image: juliansanjuan/dbt-nn
@@ -39,14 +39,14 @@ jobs:
           SNOWFLAKE_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA}}
           SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
           SNOWFLAKE_WH: ${{ secrets.SNOWFLAKE_WH }}
-          SNOWFLAKE_DB: ${{ secrets.SNOWFLAKE_DB }}         
+          SNOWFLAKE_DB: ${{ secrets.SNOWFLAKE_DB }}      
 
     # Clone DB
     steps:
-      - name: dbt debug
+      - name: dbt clone
         uses: docker://juliansanjuan/dbt-nn
         with:
-          volumes: $GITHUB_WORKSPACE/dbt_project:dbt_project
+          volumes: /__w/dbt-dh-nn/dbt-dh-nn/dbt-dh-nn/dbt_project:dbt_project
       - run: |
             cd $GITHUB_WORKSPACE/dbt_project
             echo after a pull request from dev this workflow will trigger for clonning.   
