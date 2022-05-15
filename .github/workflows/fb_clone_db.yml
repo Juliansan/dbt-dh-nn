@@ -43,6 +43,7 @@ jobs:
 
     # Clone DB
     steps:
+      - uses: actions/checkout@v3
       - name: dbt clone
         uses: docker://juliansanjuan/dbt-nn
         with:
