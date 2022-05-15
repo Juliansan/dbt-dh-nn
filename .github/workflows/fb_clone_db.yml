@@ -5,8 +5,8 @@ on:
   pull_request:
     branches:
     - '*'
-    - '!master'
-    - '!dev'
+    - 'main'
+    - 'dev'
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
